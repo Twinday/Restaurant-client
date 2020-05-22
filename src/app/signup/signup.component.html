@@ -1,0 +1,27 @@
+<div class="registration-container">
+    <h2>Регистрация</h2>
+
+<form #form='ngForm' autocomplete="off" (submit)="Register(form)">
+    <mat-form-field class="inp">
+        <input matInput #input placeholder="Введите имя" #Name="ngModel" name="Name" [(ngModel)]="formModel.Name" required>
+    </mat-form-field>
+
+    <mat-form-field class="inp">
+        <input matInput #input placeholder="Введите логин" #Login="ngModel" name="Login" [(ngModel)]="formModel.Login" required>
+    </mat-form-field>
+
+    <mat-form-field class="inp">
+        <input matInput type="password" placeholder="Введите пароль" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required>
+    </mat-form-field>
+    
+    <mat-form-field class="inp">
+        <mat-select placeholder="Выберите роль" #Role="ngModel" name="Role" [(ngModel)]="formModel.Role" required>
+            <mat-option value="waiter">Официант</mat-option>
+            <mat-option value="cook">Повар</mat-option>
+            <mat-option value="provisor">Провизор</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button class="inp" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Зарегистрировать</button>
+</form>
+</div>

@@ -1,0 +1,16 @@
+<h2>Вход</h2>
+<form class="signin-container" #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
+
+    <mat-form-field>
+        <input matInput placeholder="Логин" #Login="ngModel" name="Login" [(ngModel)]="formModel.Login" required>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput type="password" placeholder="Пароль" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required>
+        </mat-form-field>
+    
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            Войти
+    </button>
+    
+</form>

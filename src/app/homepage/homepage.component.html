@@ -1,0 +1,16 @@
+<div class="menu">
+        <a *ngIf="permitReg" mat-stroked-button routerLink="registration">Регистрация</a>
+        <a *ngIf="permitAddIng" mat-stroked-button routerLink="add-product">Добавить ингредиент</a>
+        <a *ngIf="permitShowAllIng" mat-stroked-button routerLink="display-product">Показать все ингредиенты</a>
+        <a *ngIf="permitShowLowIng" mat-stroked-button routerLink="list-buying">Ингредиенты для закупки</a>
+        <a *ngIf="permitBuyIng" mat-stroked-button routerLink="buy-ingredient">Закупить ингредиенты</a>
+        <a *ngIf="permitMenu" mat-stroked-button routerLink="menu">Меню</a>
+        <a *ngIf="permitCreateOrder" mat-stroked-button routerLink="new-order">Новый заказ</a>
+        <a *ngIf="permitCurrentOrders" mat-stroked-button routerLink="current-orders">Текущие заказы</a>
+        <a *ngIf="permitSoldDishes" mat-stroked-button routerLink="released-dishes">Проданные блюда</a>
+        <a *ngIf="permitShowRevenue" mat-stroked-button routerLink="revenue">Выручка</a>
+        <a *ngIf="permitMessage" mat-stroked-button routerLink="message">Сообщения</a>
+</div>
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
