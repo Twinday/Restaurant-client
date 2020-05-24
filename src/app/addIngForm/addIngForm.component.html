@@ -1,0 +1,36 @@
+<div>
+    <mat-form-field>
+      <input matInput placeholder="Название ингридиента" #name (input)="ChangeName(name.value)">
+    </mat-form-field>
+  </div>
+
+  <div>
+      <mat-form-field>
+        <input matInput placeholder="Единица измерения ингредиента" #measure (input)="ChangeMeasure(measure.value)">
+      </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <input matInput type="number" #avaibl placeholder="Количество" min=1 (input)="ChangeAvailable(avaibl.value)">
+        </mat-form-field>
+      </div>
+      <div>
+          <mat-form-field>
+              <!-- "ChangeDateManufacture(man.value)" -->
+              <input matInput [matDatepicker]="picker1" placeholder="Введите дату производства" (dateChange)= "ChangeDateManufacture($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 ></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+        <div>
+            <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="Введите дату окончания срока годности" (dateChange)="ChangeDateExpiration($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          </div>
+
+          <button mat-raised-button (click)="SaveIng()"> Добавить </button>
+  

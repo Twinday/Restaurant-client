@@ -1,0 +1,40 @@
+<h4>Закупка новых ингредиентов</h4>
+
+<mat-form-field>
+    <mat-label >Выберите ингредиент</mat-label>
+    <mat-select [(ngModel)]="selected" name="ingredientsList" (onclick)="addselected()" (selectionChange)="addselected()">
+      <mat-option *ngFor="let i of this.ingList" [value]="i.name" >
+        {{i.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-list>
+    <mat-list-item *ngFor="let i of this.selectedIngredient">
+      <mat-form-field margin=10px>
+        <input matInput #input type="number"  min=1  (input)="changeValue(i, input.value)" placeholder="Количество">
+      </mat-form-field>
+    </mat-list-item>
+
+    <mat-list-item *ngFor="let i of this.selectedIngredient">
+      <mat-form-field>
+        <!-- "ChangeDateManufacture(man.value)" -->
+        <input matInput [matDatepicker]="picker1" placeholder="Введите дату производства" (dateChange)= "ChangeDateManufacture($event,i)">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1 ></mat-datepicker>
+      </mat-form-field>
+    </mat-list-item>
+
+    <mat-list-item *ngFor="let i of this.selectedIngredient">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="Введите дату окончания срока годности" (dateChange)="ChangeDateExpiration($event,i)">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </mat-list-item>
+
+    <mat-list-item *ngFor="let i of this.selectedIngredient">
+      <button mat-raised-button (click)= "updateIng(i)">Сохранить изменения</button>
+    </mat-list-item>
+
+    </mat-list>
