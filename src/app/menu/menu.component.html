@@ -1,0 +1,121 @@
+<div *ngIf="!Loading">
+  <table mat-table [dataSource]="dataSourceMenu" class="mat-elevation-z8">
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let menu"> {{menu.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef> Названия </th>
+      <td mat-cell *matCellDef="let menu"> {{menu.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Cost">
+      <th mat-header-cell *matHeaderCellDef> Цена </th>
+      <td mat-cell *matCellDef="let menu"> {{menu.cost}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Count">
+      <th mat-header-cell *matHeaderCellDef> Количество порций </th>
+      <td mat-cell *matCellDef="let menu"> {{menu.count}} </td>
+    </ng-container>
+    <ng-container matColumnDef="UpButon">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let menu">
+        <button mat-raised-button color="primary" (click)="OpenIngredient(menu.id)">Редактировать</button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="RemButon">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let IngredientDishes">
+        <button mat-raised-button color="warn" (click)="RemoveDish(IngredientDishes.id)">удалить</button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsMenu"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsMenu;"></tr>
+  </table>
+  <br/>
+  <button mat-raised-button (click)="OpenAddDish()">Добавить</button>
+  <br/>
+  <a *ngIf="Open"></a>
+  <div *ngIf="!Open && DishControl != undefined">
+    <div [formGroup]="DishControl">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Названия" formControlName="Name">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Тип" formControlName="Type" Type="number" min="1">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Цена" formControlName="Cost">
+      </mat-form-field>
+    </div>
+    <div >
+      <table mat-table [dataSource]="dataSourceIngredientDishes" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> id </th>
+          <td mat-cell *matCellDef="let IngredientDishes">{{IngredientDishes.get('id').value}}</td>
+        </ng-container>
+        <ng-container matColumnDef="NameIngredient">
+          <th mat-header-cell *matHeaderCellDef> Названия </th>
+          <td mat-cell *matCellDef="let IngredientDishes">{{IngredientDishes.get('nameIngredient').value}}</td>
+        </ng-container>
+        <ng-container matColumnDef="CountIngredient">
+          <th mat-header-cell *matHeaderCellDef> Количество ингредиентов </th>
+          <td mat-cell *matCellDef="let IngredientDishes">
+            <mat-form-field class="example-full-width" [formGroup]="IngredientDishes">
+              <input matInput placeholder="Количество ингредиентов" formControlName="countIngredient" Type="number" min="1">
+            </mat-form-field>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Measure">
+          <th mat-header-cell *matHeaderCellDef> Мерность </th>
+          <td mat-cell *matCellDef="let IngredientDishes">{{IngredientDishes.get("measure").value}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Buton">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let IngredientDishes; let i = index">
+            <button mat-raised-button color="warn" (click)="RemoveIngredient(i)" [disabled]="isPut">удалить ингредиент из блюда</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsIngredientDishes"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsIngredientDishes;"></tr>
+      </table>
+    </div>
+    <br/>
+    <table mat-table [dataSource]="dataSourceIngredients" class="mat-elevation-z8" *ngIf="!isPut">
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let Ingredients">{{Ingredients.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef> Названия </th>
+        <td mat-cell *matCellDef="let Ingredients">{{Ingredients.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Available">
+        <th mat-header-cell *matHeaderCellDef> Количество на складе </th>
+        <td mat-cell *matCellDef="let Ingredients">{{Ingredients.available}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Measure">
+        <th mat-header-cell *matHeaderCellDef> Мерность </th>
+        <td mat-cell *matCellDef="let Ingredients">{{Ingredients.measure}}</td>
+      </ng-container>
+      <ng-container matColumnDef="DateManufacture">
+        <th mat-header-cell *matHeaderCellDef> Дата изготовления </th>
+        <td mat-cell *matCellDef="let Ingredients">{{Ingredients.dateManufacture | date: 'shortDate'}}</td>
+      </ng-container>
+      <ng-container matColumnDef="DateExpiration">
+        <th mat-header-cell *matHeaderCellDef> Дата истечения срока действия </th>
+        <td mat-cell *matCellDef="let Ingredients">{{Ingredients.dateExpiration | date: 'shortDate'}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Buton">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let Ingredients">
+          <button mat-raised-button (click)="AddIngredient(Ingredients.id)">Добавить ингредиент</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsIngredients"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsIngredients;"></tr>
+    </table>
+    <br/>
+    <button mat-raised-button (click)="Save(dataSourceMenu.id)" [disabled]="!DishControl.valid">Сохранить</button>
+  </div>
+</div>
+<p *ngIf="Loading">Loading...</p>

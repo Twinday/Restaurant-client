@@ -1,0 +1,15 @@
+<h4>Свободные заказы</h4>
+<mat-grid-list cols='3' *ngFor="let order of this.orderservice.freeOrders" rowHeight="50px">
+<mat-grid-tile >Заказ №{{order.id}}</mat-grid-tile>
+<mat-grid-tile >{{order.dishes}}</mat-grid-tile>
+<mat-grid-tile ><button mat-raised-button (click)="takeOrder(order)">Взять</button> </mat-grid-tile>
+</mat-grid-list>
+
+
+        <h4>Текущие заказы</h4>
+        <mat-grid-list cols='3' *ngFor="let order of this.orderservice.cookingOrders" rowHeight="50px">
+        <mat-grid-tile >Заказ №{{order.id}}</mat-grid-tile>
+        <mat-grid-tile >{{order.dishes}}</mat-grid-tile>
+        <mat-grid-tile><button mat-raised-button (click)="completeOrder(order)">Приготовить заказ</button> </mat-grid-tile>
+        </mat-grid-list>
+

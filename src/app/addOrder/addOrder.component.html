@@ -1,0 +1,20 @@
+<h4>Составление заказа</h4>
+<mat-form-field>
+  <mat-label >Выберите блюдо</mat-label>
+  <mat-select [(ngModel)]="selected" name="menu" (onclick)="addselected()" (selectionChange)="addselected()">
+    <mat-option *ngFor="let menu of this.orderservice.menudishes" [value]="menu.name" >
+      {{menu.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-list>
+  <mat-list-item *ngFor="let dish of this.selectedmenu">{{dish}}</mat-list-item>
+</mat-list>
+<button mat-raised-button (click)= "confirmOrder()">Оформить заказ</button>
+
+
+
+
+
+
